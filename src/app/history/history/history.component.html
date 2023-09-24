@@ -1,0 +1,91 @@
+<div>
+  <div class="btn" *ngIf="(gitHubUser$ | async)?.length">
+    <button
+      type="button"
+      mat-flat-button
+      color="primary"
+      (click)="clearHistory()"
+    >
+      Clear History
+    </button>
+  </div>
+</div>
+<div>
+  <table
+    mat-table
+    [dataSource]="(gitHubUser$ | async) || [] "
+    matSort
+    class="mat-elevation-z8"
+  >
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        (click)="sortBy('name')"
+      >
+        Name
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element?.name }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="success">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        (click)="sortBy('isSuccessful')"
+      >
+        Successful
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <i
+          ngClass="{{
+            element?.isSuccessful
+              ? 'fa fa-check clr-green'
+              : 'fa fa-ban clr-red'
+          }}"
+          aria-hidden="true"
+        ></i>
+      </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="faviourite">
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header
+        (click)="sortBy('isFaviourite')"
+      >
+        Faviourite
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <i
+          ngClass="{{ element?.isFaviourite ? 'fa fa-star' : 'fa fa-star-o' }}"
+          aria-hidden="true"
+        ></i>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="view">
+      <th mat-header-cell *matHeaderCellDef>View More</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          type="button"
+          mat-flat-button
+          color="accent"
+          class="mt-btn-md mr-auto"
+          *ngIf="element?.isSuccessful"
+          (click)="viewDetails(element)"
+        >
+          View More
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

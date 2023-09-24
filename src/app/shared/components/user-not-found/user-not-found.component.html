@@ -1,0 +1,16 @@
+<div id="notfound" *ngFor="let user of users">
+    <div class="notfound">
+        <div>
+            <i ngClass="{{user?.isSuccessful ? 'fa fa-check clr-green':'fa fa-ban clr-red'}}" class="biger-icon" aria-hidden="true"></i>
+        </div>
+        <div class="notfound-404">
+            <h2>{{user.name}}</h2>
+        </div>
+        <div class="card__share" *ngIf="user?.isSuccessful">
+            <div id="share"  (click)="toggleFaviourite(user)"
+                [ngClass]="user?.isFaviourite ? 'share-toggle-selected' : 'share-toggle'"
+                class="share-toggle share-icon"></div>
+        </div>
+        <button type="button" mat-flat-button class="mt-btn-md mr-auto" (click)="viewDetails(user)" *ngIf="user.isSuccessful">View More</button>
+    </div>
+</div>

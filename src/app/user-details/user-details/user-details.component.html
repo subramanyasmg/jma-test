@@ -1,0 +1,31 @@
+<div class="wrapper" *ngIf="(user$ | async) as user">
+    <div class="card radius shadowDepth1">
+    <div class="card__image border-tlr-radius">
+        <img src="{{user.avatar_url}}" alt="image" class="border-tlr-radius">
+    </div>
+    <div class="card__content card__padding">
+        <div class="card__share">
+            <div id="share" (click)="toggleFaviourite(user)"
+                class="share-icon">
+                <i ngClass="{{user.isFaviourite ? 'fa fa-star':'fa fa-star-o'}}" aria-hidden="true"></i>
+            </div>
+        </div>
+        <article class="card__article">
+            <h2>
+                <div>♥️ {{user.name}} ♥️</div>
+            </h2>
+        </article>
+        <div class="disply-inline">
+            <article class="card__article">
+                <div>{{user.followers }} followers</div>
+                <div>{{user.following }} following</div>
+                <div>{{user.public_repos }} Public repos</div>
+            </article>
+        </div>
+        <div class="disply-inline">
+            <p *ngIf="user.blog !== ''" ><a target="#" href="{{user.blog}}">Blog Link</a> </p>
+            <div>{{user.location }}</div>
+        </div>
+    </div>
+</div>
+</div>
